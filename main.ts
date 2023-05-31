@@ -7,11 +7,15 @@ input.onButtonEvent(Button.A, input.buttonEventClick(), function () {
     }
 })
 input.onButtonEvent(Button.AB, input.buttonEventClick(), function () {
-	
+    if (!(navigate)) {
+        navigate = true
+        basic.setLedColor(0x00ff00)
+    }
+    i = 0
+    nextDirection()
 })
 input.onButtonEvent(Button.B, input.buttonEventClick(), function () {
     if (!(navigate)) {
-        let richtungen: number[] = []
         richtungen[richtungen.length] = richtung
         basic.setLedColor(0xffff00)
         basic.pause(300)
@@ -55,11 +59,24 @@ function ShowDirection (Direction2: number) {
     }
 }
 function nextDirection () {
-	
+    if (richtungen.length > i) {
+        ShowDirection(richtungen[i])
+        i += 1
+    } else {
+        basic.showLeds(`
+            # # # . .
+            # . # # .
+            # # . . #
+            # . # # #
+            # . . . .
+            `)
+    }
 }
+let richtungen: number[] = []
 let richtung = 0
 let navigate = false
 let i = 0
+i = 0
 navigate = false
 richtung = 0
 basic.setLedColor(0xff0000)
